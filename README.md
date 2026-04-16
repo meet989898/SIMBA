@@ -62,13 +62,6 @@ This repo uses a chess-position similarity workflow to demonstrate:
 
 This project is prepared for **GitHub + Streamlit Community Cloud** deployment.
 
-Recommended deployment shape:
-
-- publish from a **slim deployment branch/repo**
-- use repo root `app.py` as the Streamlit entrypoint
-- include runtime app files, `components/cg_board`, `data/sample_games`, `data/demo`, `data/presets.json`, and the bundled `data/bulk_pgn`
-- exclude local/non-runtime artifacts such as `outputs/`, `.venv/`, IDE folders, poster/submission folders, and other workspace-only files
-- do not include Windows-only Stockfish binaries in the hosted Linux deploy branch
 
 Deployment manifests included at repo root:
 
@@ -99,9 +92,3 @@ Why this choice:
 - keeps ingestion streaming-friendly
 - simplifies reproducibility for small/medium demo corpora
 - still supports large PGN inputs safely by parsing one game at a time
-
-## Notes for Open-Sourcing
-
-- This project intentionally uses Chessground (GPL-compatible workflow for this repo).
-- Keep `CREDITS.md` and upstream license texts when redistributing vendor assets.
-- Verify exact third-party versions/license files included in `components/cg_board/frontend/vendor/`.
