@@ -3,4 +3,5 @@ python-chess>=1.999
 numpy>=1.26,<3
 pandas>=2.2,<3
 altair>=5.3,<6
+typing_extensions>=4.12.2
 faiss-cpu>=1.8.0

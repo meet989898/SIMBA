@@ -8,10 +8,16 @@ from typing import Any
 
 import chess
 import chess.svg
-import altair as alt
 import numpy as np
 import pandas as pd
 import streamlit as st
+
+try:
+    import altair as alt
+    ALTAIR_IMPORT_ERROR: str | None = None
+except Exception as exc:  # pragma: no cover - deployment/env dependent
+    alt = None  # type: ignore[assignment]
+    ALTAIR_IMPORT_ERROR = f"{type(exc).__name__}: {exc}"
 
 from benchmarks import run_search_benchmark
 from chess_state import AnalysisTree
@@ -929,7 +935,9 @@ def render_large_compare_board(
     st.components.v1.html(f'<div class="mini-board-shell">{svg}</div>', height=size + 16, scrolling=False)
 
 
-def styled_benchmark_chart(chart: alt.Chart) -> alt.Chart:
+def styled_benchmark_chart(chart):
+    if alt is None:
+        return chart
     return (
         chart.properties(background="white")
         .configure_view(strokeOpacity=0)
@@ -2394,7 +2402,15 @@ def main() -> None:
                     if "build_time_ms" in valid_df.columns:
                         st.caption("Legend: colors represent search methods. Lower is better for latency/build/memory; higher is better for QPS/recall.")
 
+                    if alt is None:
+                        st.warning(
+                            "Altair charts are unavailable in this deployment, so the benchmark tab is showing tables only. "
+                            f"Altair import error: {ALTAIR_IMPORT_ERROR}"
+                        )
+
                     def _render_metric_bar(value_col: str, title: str, y_title: str) -> None:
+                        if alt is None:
+                            return
                         plot_df = valid_df[["method", value_col]].dropna().copy()
                         if plot_df.empty:
                             return
@@ -2424,7 +2440,7 @@ def main() -> None:
                         _render_metric_bar("recall_at_k", "Retrieval Quality", "Recall@k")
 
                     latency_cols = [c for c in ("query_latency_ms_p50", "query_latency_ms_p95", "query_latency_ms_p99") if c in valid_df.columns]
-                    if latency_cols:
+                    if alt is not None and latency_cols:
                         latency_df = valid_df[["method"] + latency_cols].melt(
                             id_vars=["method"],
                             var_name="percentile",
