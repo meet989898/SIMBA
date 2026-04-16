@@ -1,0 +1,78 @@
+[
+  {
+    "id": "start_identity",
+    "name": "Starting Position",
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+    "description": "Baseline identity position."
+  },
+  {
+    "id": "castle_rights_query",
+    "name": "Castling Rights Query",
+    "fen": "r3k2r/ppp2ppp/2n2n2/3pp3/3PP3/2P2N2/PP3PPP/R3K2R w KQkq - 0 10",
+    "description": "Same piece map as companion state variant with full castling rights."
+  },
+  {
+    "id": "castle_rights_state_variant",
+    "name": "State Variant",
+    "fen": "r3k2r/ppp2ppp/2n2n2/3pp3/3PP3/2P2N2/PP3PPP/R3K2R b - - 0 10",
+    "description": "Near-identity position with side-to-move and castling-state differences."
+  },
+  {
+    "id": "material_query",
+    "name": "Material Query",
+    "fen": "r3k2r/ppp2ppp/2n2n2/3pp3/3PP3/2P2N2/PP3PPP/R3K2R w KQkq - 0 10",
+    "description": "Material baseline position."
+  },
+  {
+    "id": "material_down_piece",
+    "name": "Material Down Piece",
+    "fen": "r3k2r/ppp2ppp/2n2n2/3pp3/3PP3/2P5/PP3PPP/R3K2R w KQkq - 0 10",
+    "description": "Same structure but white is down a knight."
+  },
+  {
+    "id": "material_collapse_endgame",
+    "name": "Material Collapse Endgame",
+    "fen": "8/8/8/8/8/8/4K3/7k w - - 0 1",
+    "description": "Extreme material collapse used for a deterministic low-similarity demo."
+  },
+  {
+    "id": "castled_structure",
+    "name": "Castled Structure",
+    "fen": "rnbq1rk1/pppp1ppp/5n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQ1RK1 w - - 4 5",
+    "description": "Both sides developed with white king castled."
+  },
+  {
+    "id": "uncastled_structure",
+    "name": "Uncastled Structure",
+    "fen": "rnbq1rk1/pppp1ppp/5n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQ - 4 5",
+    "description": "Similar material and placement but white king remains central."
+  },
+  {
+    "id": "f3_e5_g3_safe",
+    "name": "Safe f3/e5/g3",
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/8/5PP1/PPPPP2P/RNBQKBNR b KQkq - 0 2",
+    "description": "Structure before tactical collapse.",
+    "eval_cp_stm": 900
+  },
+  {
+    "id": "f3_e5_g4_blunder",
+    "name": "Blunder f3/e5/g4",
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR b KQkq g3 0 2",
+    "description": "Very similar board but tactically vulnerable.",
+    "eval_cp_stm": -900
+  },
+  {
+    "id": "f3_e5_g3_nc6",
+    "name": "Safe with ...Nc6",
+    "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/8/5PP1/PPPPP2P/RNBQKBNR w KQkq - 1 3",
+    "description": "Slightly less structurally similar but tactically healthier than the blunder line.",
+    "eval_cp_stm": 650
+  },
+  {
+    "id": "fools_mate_final",
+    "name": "Fool's Mate Final",
+    "fen": "rnb1kbnr/pppp1ppp/8/4p3/6Pq/5P2/PPPPP2P/RNBQKBNR w KQkq - 1 3",
+    "description": "Checkmate endpoint from the blunder line.",
+    "eval_cp_stm": -1000
+  }
+]

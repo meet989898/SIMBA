@@ -1,0 +1,29 @@
+[Event "Demo Scenario - Tactical Blunder"]
+[Site "Capstone"]
+[Date "2026.03.16"]
+[Round "1"]
+[White "PresenterLineA"]
+[Black "PresenterLineB"]
+[Result "0-1"]
+
+1. f3 e5 2. g4 Qh4# 0-1
+
+[Event "Demo Scenario - Safe Alternative"]
+[Site "Capstone"]
+[Date "2026.03.16"]
+[Round "2"]
+[White "PresenterLineA"]
+[Black "PresenterLineB"]
+[Result "*"]
+
+1. f3 e5 2. g3 Nc6 3. Bg2 d5 *
+
+[Event "Demo Scenario - Castling Contrast"]
+[Site "Capstone"]
+[Date "2026.03.16"]
+[Round "3"]
+[White "PresenterLineC"]
+[Black "PresenterLineD"]
+[Result "*"]
+
+1. e4 e5 2. Nf3 Nf6 3. Bc4 Nc6 4. O-O Be7 5. d3 O-O *

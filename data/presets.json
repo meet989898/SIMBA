@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Starting Position",
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+    "description": "Initial chess position for baseline demos."
+  },
+  {
+    "name": "Italian Middlegame Tension",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/2bpp3/2BPP3/2P2N2/PP3PPP/RNBQR1K1 w - - 0 8",
+    "description": "Balanced development with central tension and natural candidate moves."
+  },
+  {
+    "name": "Tactical King Hunt",
+    "fen": "r2q1rk1/ppp2ppp/2n5/3np3/3PP3/2P2N2/PP1N1PPP/R1BQ1RK1 w - - 0 10",
+    "description": "Typical middlegame structure for similarity and engine-arrow presentations."
+  },
+  {
+    "name": "Rook Endgame Sample",
+    "fen": "8/5pk1/4p1p1/3pP2p/3P1P1P/4PK2/6R1/8 w - - 0 1",
+    "description": "Endgame position useful for contrasting embeddings and engine evaluation."
+  },
+  {
+    "name": "Sicilian Najdorf Tension",
+    "fen": "r2q1rk1/1b1nbppp/p2ppn2/1pp5/3PP3/1BN1BN2/PPQ2PPP/R3KB1R w KQ - 0 11",
+    "description": "Open Sicilian structure with central tension; useful for opening-phase similarity demos."
+  },
+  {
+    "name": "IQP Middlegame",
+    "fen": "r1bq1rk1/pp3ppp/2n1pn2/2bp4/3P4/2N1PN2/PPQ1BPPP/R1B2RK1 w - - 0 9",
+    "description": "Isolated-queen-pawn style structure to show strategic pattern matching beyond tactics."
+  },
+  {
+    "name": "Kingside Mate Threat",
+    "fen": "r4rk1/pp2qppp/2n1bn2/3p4/3P4/2N1PN2/PPQ2PPP/2KR1B1R w - - 0 13",
+    "description": "Piece concentration around the king for showcasing best-move arrows and PV differences."
+  },
+  {
+    "name": "Passed Pawn Endgame",
+    "fen": "8/2p3k1/3p2p1/3Pp1P1/4P3/2P2K2/8/8 w - - 0 1",
+    "description": "Simplified endgame with pawn races; great for demonstrating material and piece-info features."
+  }
+]

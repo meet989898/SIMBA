@@ -1,0 +1,11 @@
+[Event "Scholars Mate Demo"]
+[Site "Local"]
+[Date "2026.02.26"]
+[Round "1"]
+[White "Demo White"]
+[Black "Demo Black"]
+[Result "1-0"]
+[Opening "Scholar's Mate"]
+
+1. e4 e5 2. Bc4 Nc6 3. Qh5 Nf6 4. Qxf7# 1-0
+

@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "default_method": "brute",
+  "default_top_k": 6,
+  "default_score_bands": {
+    "perfect": [95.0, 100.0],
+    "high": [80.0, 94.99],
+    "medium": [60.0, 79.99],
+    "low": [0.0, 59.99]
+  },
+  "scenarios": [
+    {
+      "id": "S1",
+      "title": "Perfect Identity Match",
+      "query": { "position_id": "start_identity" },
+      "candidate": { "position_id": "start_identity" },
+      "expected_band": "perfect",
+      "feature_focus": ["base_781"],
+      "narrative": "Exact same position should produce the strongest possible similarity score."
+    },
+    {
+      "id": "S2",
+      "title": "Near-Identity, Different State Bits",
+      "query": { "position_id": "castle_rights_query" },
+      "candidate": { "position_id": "castle_rights_state_variant" },
+      "expected_band": "high",
+      "feature_focus": ["base_781"],
+      "narrative": "Piece placement is the same, but side-to-move and castling/en-passant state change the vector."
+    },
+    {
+      "id": "S3",
+      "title": "Eval-Sensitive Tactical Difference",
+      "query": { "position_id": "f3_e5_g3_safe" },
+      "candidate": { "position_id": "f3_e5_g4_blunder" },
+      "expected_band": "high",
+      "feature_focus": ["eval", "piece_info"],
+      "narrative": "These two boards are structurally close, but curated eval annotations drive a clear score drop when the eval feature is enabled."
+    },
+    {
+      "id": "S4",
+      "title": "Material-Sensitive Difference",
+      "query": { "position_id": "material_query" },
+      "candidate": { "position_id": "material_collapse_endgame" },
+      "expected_band": "low",
+      "feature_focus": ["material", "piece_counts"],
+      "narrative": "Severe material collapse yields a low score and near-zero material contribution."
+    },
+    {
+      "id": "S5",
+      "title": "Piece-Info Sensitivity (King/Mobility)",
+      "query": { "game_id": "demo_games.pgn::game_2", "ply_index": 10 },
+      "candidate": { "position_id": "uncastled_structure" },
+      "expected_band": "high",
+      "feature_focus": ["piece_info"],
+      "narrative": "King placement and mobility-driven features explain score differences beyond raw piece occupancy."
+    },
+    {
+      "id": "S6",
+      "title": "Profile-Based Ranking Shift",
+      "query": { "position_id": "start_identity" },
+      "candidate": { "position_id": "castled_structure" },
+      "comparison_candidates": [
+        { "position_id": "material_down_piece" },
+        { "position_id": "castled_structure" },
+        { "position_id": "castle_rights_query" }
+      ],
+      "expected_band": "medium",
+      "feature_focus": ["base_781", "material", "piece_info", "eval"],
+      "narrative": "The top-ranked candidate flips between Profile A and Profiles B/C, illustrating feature-driven retrieval behavior."
+    }
+  ]
+}
