@@ -317,6 +317,48 @@ def inject_styles() -> None:
           font-size: 0.76rem;
           font-weight: 600;
         }
+        .contrib-chart {
+          display: grid;
+          gap: 0.48rem;
+          margin-top: 0.15rem;
+        }
+        .contrib-row {
+          display: grid;
+          grid-template-columns: minmax(92px, 120px) 1fr auto;
+          gap: 0.55rem;
+          align-items: center;
+        }
+        .contrib-label {
+          color: var(--ink);
+          font-size: 0.84rem;
+          font-weight: 600;
+          line-height: 1.15;
+        }
+        .contrib-track {
+          position: relative;
+          height: 12px;
+          border-radius: 999px;
+          background: rgba(15, 23, 42, 0.09);
+          overflow: hidden;
+        }
+        .contrib-fill {
+          height: 100%;
+          border-radius: 999px;
+        }
+        .contrib-fill.pos {
+          background: linear-gradient(90deg, #0f766e, #14b8a6);
+        }
+        .contrib-fill.neg {
+          background: linear-gradient(90deg, #b45309, #f97316);
+        }
+        .contrib-value {
+          min-width: 72px;
+          text-align: right;
+          color: var(--ink);
+          font-size: 0.82rem;
+          font-weight: 700;
+          font-variant-numeric: tabular-nums;
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -957,6 +999,41 @@ def styled_benchmark_chart(chart):
             orient="right",
         )
         .configure_title(fontSize=18, color="#1f1f1f")
+    )
+
+
+def render_contribution_breakdown(contrib_df: pd.DataFrame) -> None:
+    if contrib_df.empty:
+        return
+    working = contrib_df.copy()
+    working["contribution"] = pd.to_numeric(working["contribution"], errors="coerce").fillna(0.0)
+    working["share_abs_pct"] = pd.to_numeric(working.get("share_abs_pct"), errors="coerce").fillna(0.0)
+    working = working.sort_values(["share_abs_pct", "group"], ascending=[False, True]).reset_index(drop=True)
+    max_abs = float(working["contribution"].abs().max())
+    if max_abs <= 0:
+        max_abs = 1.0
+
+    rows: list[str] = []
+    for row in working.to_dict("records"):
+        contribution = float(row["contribution"])
+        share_abs_pct = float(row.get("share_abs_pct", 0.0))
+        width_pct = max(8.0, min(100.0, abs(contribution) / max_abs * 100.0))
+        fill_class = "pos" if contribution >= 0 else "neg"
+        rows.append(
+            "<div class='contrib-row'>"
+            f"<div class='contrib-label'>{row['group']}</div>"
+            "<div class='contrib-track'>"
+            f"<div class='contrib-fill {fill_class}' style='width:{width_pct:.1f}%'></div>"
+            "</div>"
+            f"<div class='contrib-value'>{contribution:+.3f} | {share_abs_pct:.1f}%</div>"
+            "</div>"
+        )
+
+    st.markdown(
+        "<div class='contrib-chart'>"
+        + "".join(rows)
+        + "</div>",
+        unsafe_allow_html=True,
     )
 
 
@@ -2014,7 +2091,8 @@ def main() -> None:
                 with exp_col_b:
                     contrib_df = pd.DataFrame(pair_explain["group_contributions"])
                     if not contrib_df.empty:
-                        st.bar_chart(contrib_df.set_index("group")[["contribution"]], use_container_width=True)
+                        st.markdown("**Feature Group Contributions**")
+                        render_contribution_breakdown(contrib_df)
                         st.dataframe(
                             contrib_df[["group", "contribution", "share_abs_pct", "share_signed_pct"]],
                             use_container_width=True,
